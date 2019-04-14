@@ -16,6 +16,7 @@ Project structure:
   - External libary
     - Shoudly
 - **Zephyr.PaymentGateway.Maybank2uPay.Web**
+  - .NET Framework 4.5
   - Proof-of-concept and web demo of M2U feature
   - External libary
     - Newtonsoft.Json
