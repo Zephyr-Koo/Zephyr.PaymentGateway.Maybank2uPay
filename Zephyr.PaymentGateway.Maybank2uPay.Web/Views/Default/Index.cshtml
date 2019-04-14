@@ -1,0 +1,154 @@
+﻿@model Zephyr.PaymentGateway.Maybank2uPay.Web.Models.DemoViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="google-site-verification" content="YmZ72UQcG2dfOP39XRnxumCUMHPkhQIgafev9kPOM0Y" />
+    <title>Maybank2uPay SDK Playground × .NET Implementation</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha256-azvvU9xKluwHFJ0Cpgtf0CYzK7zgtOznnzxV4924X1w="
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="~/Assets/Css/main.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"
+            integrity="sha256-QRJz3b0/ZZC4ilKmBRRjY0MgnVhQ+RR1tpWLYaRRjSo="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 class="main-header text-center">Maybank2uPay Demonstration</h1>
+
+    <p class="text-center">Official documentation 🔗 <a href="https://m2upay.maybank2u.com.my/sdk" target="_blank">https://m2upay.maybank2u.com.my/sdk</a></p><br>
+
+    <div ng-app="app.paymentGateway.m2upay" ng-controller="M2uPaymentGatewayController as ctrl" class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <h4>Parameters</h4><hr>
+                <div class="row">
+                    <label class="col-lg-5 text-field">amount</label>
+                    <div class="col-lg-7">
+                        <input type="text"
+                               class="form-control"
+                               ng-model="ctrl.param.amount"
+                               ng-change="ctrl.onParamChange()" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-5 text-field">accountNumber</label>
+                    <div class="col-lg-7">
+                        <input type="text"
+                               class="form-control"
+                               ng-model="ctrl.param.accountNo"
+                               ng-change="ctrl.onParamChange()" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-5 text-field">payeeCode</label>
+                    <div class="col-lg-7">
+                        <input type="text"
+                               class="form-control"
+                               ng-model="ctrl.param.payeeCode"
+                               ng-change="ctrl.onParamChange()" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-5 text-field">refNumber</label>
+                    <div class="col-lg-7">
+                        <input type="text"
+                               class="form-control"
+                               ng-model="ctrl.param.refNo"
+                               ng-change="ctrl.onParamChange()" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-5 text-field">envType</label>
+
+                    <fieldset class="form-group radio">
+                        @foreach (var environment in Model.Environments)
+                        {
+                            var radioButtonId = $"rblEnvironment{ environment.Key }";
+
+                            <div class="form-check">
+                                <input type="radio"
+                                       class="form-check-input"
+                                       name="environment"
+                                       id="@radioButtonId"
+                                       ng-model="ctrl.environment"
+                                       ng-change="ctrl.onParamChange()"
+                                       value="@environment.Key" />
+                                <label class="form-check-label"
+                                       for="@radioButtonId">@environment.Key&nbsp;(@environment.Value)</label>
+                            </div>
+                        }
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h4>Result</h4><hr>
+                <div class="row">
+                    <label class="col-lg-3 text-field">actionUrl</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               ng-model="ctrl.result.actionUrl"
+                               disabled readonly />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-3 text-field">encryptedString</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control row-2"
+                                  rows="2"
+                                  ng-model="ctrl.result.encryptedString"
+                                  disabled readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <h4>Encrypted Json</h4><hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <textarea class="form-control row-3 json"
+                          rows="4"
+                          ng-model="ctrl.result.encryptedJson"
+                          disabled readonly></textarea>
+            </div>
+        </div>
+
+        @* Transaction form submission START *@
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="post"
+                      target="_blank"
+                      ng-attr-action="{{ ctrl.result.actionUrl }}">
+                    <input type="hidden" name="q" ng-attr-value="{{ ctrl.result.encryptedString }}" />
+                    <input type="hidden" name="i" value="OT" /> @* Hard-coded default value "OT" *@
+                    <input type="submit"
+                           class="btn-block"
+                           value="Submit"
+                           ng-disabled="!ctrl.hasJson" />
+                </form>
+            </div>
+        </div>
+        @* Transaction form submission END *@
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted text-center">Made with <span class="love">❤️</span> by <a href="https://github.com/Zephyr-Koo/AppOnAzure" target="_blank">Zephyr Koo</a> &copy; 2019</p>
+        </div>
+    </footer>
+
+    <script>
+        var environment_data_binded = '@Model.Environments.First().Key';
+    </script>
+    <script src="~/Assets/Js/main.min.js"></script>
+</body>
+</html>
