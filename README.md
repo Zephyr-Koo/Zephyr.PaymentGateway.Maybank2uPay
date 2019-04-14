@@ -1,3 +1,9 @@
+Maybank2U Pay SDK (.NET)
+------------------------
+
+Live URL: https://maybank2upay-sdk.azurewebsites.net
+
+
 Project structure:
 - **Zephyr.PaymentGateway.Maybank2uPay.Core**
   - Written in .NET Framework 3.5 for compatibility
