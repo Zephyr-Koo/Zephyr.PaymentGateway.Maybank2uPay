@@ -26,13 +26,11 @@ namespace Zephyr.PaymentGateway.Maybank2uPay.Core
             string payeeCode,
             string refNo)
         {
-            return new M2uPayload()
-            {
-                Amount    = amount.ToString(),
-                AccountNo = accountNo,
-                PayeeCode = payeeCode,
-                RefNo     = refNo
-            };
+            return new M2uPayload(
+                        amount.ToString(),
+                        accountNo,
+                        payeeCode,
+                        refNo);
         }
 
         public static string GetEncryptionJsonString(

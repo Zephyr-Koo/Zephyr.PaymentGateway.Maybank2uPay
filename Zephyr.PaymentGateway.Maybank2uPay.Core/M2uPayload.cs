@@ -11,15 +11,27 @@ namespace Zephyr.PaymentGateway.Maybank2uPay.Core
     {
         public const long SerialVersionUID = 1L;
 
-        public string Amount { get; set; }
+        public string Amount { get; private set; }
 
-        public string AccountNo { get; set; }
+        public string AccountNo { get; private set; }
 
-        public string PayeeCode { get; set; }
+        public string PayeeCode { get; private set; }
 
-        public string RefNo { get; set; }
+        public string RefNo { get; private set; }
 
         [Obsolete("This field have no reference in recent Maybank2UPay SDK documentation.")]
-        public string CallbackUrl { get; set; }
+        public string CallbackUrl { get; private set; }
+
+        public M2uPayload(
+            string amount,
+            string accountNo,
+            string payeeCode,
+            string refNo)
+        {
+            this.Amount    = amount;
+            this.AccountNo = accountNo;
+            this.PayeeCode = payeeCode;
+            this.RefNo     = refNo;
+        }
     }
 }
