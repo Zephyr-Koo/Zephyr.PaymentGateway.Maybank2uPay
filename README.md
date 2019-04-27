@@ -25,9 +25,13 @@ Usage
 
 (1) Build `M2UPayload` object with parameters
 
-`var payload = M2uPaymentGateway.CreatePayload(amount, accountNo, payeeCode, refNo);`
+```c#
+var payload = M2uPaymentGateway.CreatePayload(amount, accountNo, payeeCode, refNo);
+```
 
 
 (2) Get encrypted JSON with predefined `environment`
 
-`var encryptedJson = payload.GetEncryptionJsonString(environment);`
+```c#
+var encryptedJson = payload.GetEncryptionJsonString(environment);
+```
